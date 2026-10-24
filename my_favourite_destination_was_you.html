@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Favourite Destination Was You ✈️</title>
+<style>
+:root{--cream:#fff8e9;--paper:#fffdf5;--navy:#172e50;--blue:#8dbce5;--sky:#dceeff;--ink:#243b59;--muted:#62758b;--gold:#e7c987;--pink:#f5cbd4;--line:#d8e3ec}
+*{box-sizing:border-box}
+body{margin:0;background:linear-gradient(180deg,#eaf5ff 0%,var(--cream) 44%,#fff8ed 100%);color:var(--ink);font-family:Georgia,"Times New Roman",serif}
+button,a{font:inherit}
+button{cursor:pointer}
+button:focus-visible,a:focus-visible{outline:3px solid #4b8dc8;outline-offset:3px}
+.hero{min-height:90vh;display:grid;place-items:center;padding:28px 18px;position:relative;overflow:hidden;background:linear-gradient(145deg,#183456 0%,#315b83 43%,#eabf9a 100%);color:#fff}
+.hero:before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 20% 80%,#f7d9b5aa,transparent 36%),radial-gradient(ellipse at 75% 25%,#d5eaff88,transparent 35%)}
+.hero-inner{position:relative;max-width:760px;text-align:center}
+.eyebrow{letter-spacing:.18em;text-transform:uppercase;font:12px Arial,sans-serif;opacity:.9}
+.hero h1{font-size:clamp(2.8rem,8vw,5.8rem);font-weight:normal;line-height:.98;margin:18px 0}
+.hero p{font:16px/1.8 Arial,sans-serif;max-width:530px;margin:18px auto}
+.plane{font-size:62px;display:block;transform:rotate(-12deg);margin:12px}
+.btn{border:0;border-radius:999px;background:var(--navy);color:#fff;padding:13px 21px;box-shadow:0 6px 0 #0d2038;font: bold 13px Arial,sans-serif;transition:transform .15s,box-shadow .15s}
+.btn:hover{transform:translateY(-2px);box-shadow:0 8px 0 #0d2038}
+.btn.secondary{background:#e5f1ff;color:var(--navy);box-shadow:0 5px 0 #b5cfe5}
+.btn.ghost{background:transparent;color:var(--navy);box-shadow:none;border:1px solid var(--line)}
+.ticket{display:inline-block;margin:25px auto 0;padding:15px 22px;border:1px dashed #fff8;border-radius:12px;transform:rotate(-2deg);font:13px/1.7 Arial,sans-serif;background:#ffffff12}
+main{max-width:1050px;margin:auto;padding:26px 16px 60px}
+.topline{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin:8px 0 18px}
+h2{font-size:clamp(1.7rem,4vw,2.6rem);font-weight:normal;margin:0}
+.sub{font:14px/1.7 Arial,sans-serif;color:var(--muted)}
+.progress-wrap{background:#e4eaf0;height:9px;border-radius:99px;overflow:hidden;min-width:120px;flex:1;max-width:250px}
+.progress{height:100%;width:0;background:linear-gradient(90deg,#7fb3df,#f0c987);transition:width .3s}
+.map{position:relative;overflow:hidden;border:1px solid #d6e2e8;border-radius:26px;padding:22px;background:linear-gradient(180deg,#edf7ff,#fff8e9);box-shadow:0 12px 30px #27496912}
+.map:before{content:"";position:absolute;inset:0;opacity:.45;background-image:radial-gradient(#b6d5ee 1px,transparent 1px);background-size:20px 20px;pointer-events:none}
+.map-intro{position:relative;text-align:center;margin:4px auto 20px;max-width:560px}
+.route{position:relative;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;align-items:start}
+.island{position:relative;z-index:1;min-height:180px;border:1px solid #d3e4f0;border-radius:22px;background:#ffffffd9;padding:14px 10px;text-align:center;box-shadow:0 7px 0 #d8e7f0;transition:transform .2s}
+.island:nth-child(even){margin-top:38px}
+.island:hover{transform:translateY(-4px)}
+.island .emoji{font-size:42px;display:block;margin-bottom:8px}
+.island h3{font-size:16px;font-weight:normal;line-height:1.25;margin:6px 0}
+.island p{font:11px/1.5 Arial,sans-serif;color:var(--muted);margin:6px 0 10px}
+.island .mini-btn{border:1px solid #c4d8e8;border-radius:99px;background:#edf6ff;color:var(--navy);padding:7px 11px;font:11px Arial,sans-serif}
+.island.locked{filter:grayscale(.45);opacity:.65}
+.island.locked .mini-btn{background:#eee;color:#6d7b8b}
+.stamp{font:10px Arial,sans-serif;text-transform:uppercase;letter-spacing:.08em;color:#557b9e}
+.route-note{text-align:center;color:#6d8eaa;font:italic 13px Georgia,serif;margin:22px 0 2px}
+.panel{display:none;background:var(--paper);border:1px solid #e4dac8;border-radius:24px;padding:clamp(18px,4vw,34px);margin-top:22px;box-shadow:0 10px 28px #203b5610}
+.panel.active{display:block;animation:arrive .25s ease-out}
+@keyframes arrive{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.panel-head{display:flex;justify-content:space-between;align-items:start;gap:12px;margin-bottom:18px}
+.panel h2{font-size:clamp(1.6rem,4vw,2.3rem)}
+.panel p{font:14px/1.8 Arial,sans-serif}
+.quote{font-style:italic;color:#355a7a;background:#edf6ff;border-left:3px solid var(--blue);padding:14px 16px;border-radius:0 12px 12px 0;line-height:1.7}
+.playlist{border:1px solid #dbe4e8;background:#f5f9fb;border-radius:18px;padding:16px;margin:18px 0}
+.playlist-top{display:flex;gap:13px;align-items:center}
+.cover{width:68px;height:68px;border-radius:12px;display:grid;place-items:center;font-size:32px;background:linear-gradient(135deg,#8ab8e3,#fff0ce);flex-shrink:0}
+.playlist h3{margin:0 0 5px;font-size:18px;font-weight:normal}
+.playlist .sub{font-size:12px}
+.song-list{columns:2;column-gap:25px;margin:14px 0 0;padding-left:22px;font:13px/1.9 Arial,sans-serif}
+.playlist-actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:15px}
+.game-box{background:#f1f7fc;border-radius:18px;padding:17px;margin:18px 0}
+.choices{display:flex;flex-wrap:wrap;gap:10px;margin:14px 0}
+.choice{border:1px solid #bfd3e4;background:#fff;border-radius:13px;padding:12px 15px;color:var(--navy)}
+.choice:hover,.choice.selected{background:#dceeff;border-color:#679ac6}
+.feedback{min-height:24px;color:#315f86;font:13px/1.5 Arial,sans-serif;margin-top:8px}
+.cloud-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:15px 0}
+.cloud{min-height:78px;border:1px solid #d1e2ef;background:#e5f3ff;border-radius:18px;font-size:30px}
+.cloud.found{background:#fff1d7}
+.memory-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:15px 0}
+.memory-card{min-height:74px;border:1px solid #c8dbea;border-radius:12px;background:#dceeff;font-size:25px;color:var(--navy)}
+.memory-card.open,.memory-card.matched{background:#fff4dd}
+.memory-card.matched{border-color:#9bc6a5}
+.hearts{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin:15px 0}
+.heart{border:1px solid #edcbd1;border-radius:13px;background:#fff0f2;font-size:28px;min-height:58px}
+.heart.found{background:#ffe1e7}
+.letter{background:#fffaf0;border:1px dashed #d7c5a7;padding:clamp(20px,5vw,38px);border-radius:8px;box-shadow:0 7px 0 #f0e5d3;line-height:1.9}
+.letter p{font:15px/1.95 Georgia,serif}
+.hidden{display:none!important}
+footer{text-align:center;padding:28px 10px;color:#6c8298;font:12px/1.8 Arial,sans-serif}
+.small{font:12px/1.7 Arial,sans-serif;color:var(--muted)}
+@media(max-width:720px){.route{grid-template-columns:repeat(2,minmax(0,1fr))}.island:nth-child(even){margin-top:0}.island{min-height:165px}.song-list{columns:1}.memory-grid{grid-template-columns:repeat(4,1fr)}}
+@media(max-width:390px){.route{gap:8px}.island{padding:11px 7px}.island .emoji{font-size:35px}.cloud-grid{gap:7px}.memory-card{min-height:62px}.hero h1{font-size:2.8rem}}
+</style>
+</head>
+<body>
+<section class="hero" id="home">
+  <div class="hero-inner">
+    <div class="eyebrow">A little journey, made just for you</div>
+    <span class="plane">✈️</span>
+    <h1>My Favourite<br>Destination Was You</h1>
+    <p>For my bubba ♡<br>A little adventure through the songs, moments, and miles that led me to you.</p>
+    <button class="btn" onclick="startJourney()">Start Our Journey →</button>
+    <div class="ticket">BOARDING PASS ♡<br>PASSENGER: MY FAVOURITE PERSON<br>DESTINATION: YOUR HEART<br>FLIGHT: US, ALWAYS</div>
+  </div>
+</section>
+
+<main id="journey" class="hidden">
+  <div class="topline">
+    <div><div class="stamp">Captain's log · Flight 001</div><h2>Our Love Story Map</h2></div>
+    <div style="display:flex;align-items:center;gap:10px"><span id="progressText" class="small">0 / 5 destinations</span><div class="progress-wrap"><div class="progress" id="progressBar"></div></div></div>
+  </div>
+  <p class="sub">Explore each destination, play the mini-games, and follow the little flight path. Your next chapter unlocks when you're ready. 💙</p>
+  <section class="map" id="map">
+    <div class="map-intro"><span style="font-size:28px">☁️ 🧭 ☁️</span><p class="sub">Different chapters. Different skies. One favourite destination.</p></div>
+    <div class="route">
+      <article class="island" id="island0"><span class="emoji">🛫</span><div class="stamp">01 · Departure</div><h3>Before I Knew It Was You</h3><p>The almosts, the butterflies, the beginning.</p><button class="mini-btn" onclick="openChapter(0)">Board flight</button></article>
+      <article class="island locked" id="island1"><span class="emoji">☁️</span><div class="stamp">02 · Cloud nine</div><h3>Songs That Sound Like You</h3><p>Every song somehow sounds like her.</p><button class="mini-btn" onclick="openChapter(1)">Locked 🔒</button></article>
+      <article class="island locked" id="island2"><span class="emoji">🌙</span><div class="stamp">03 · Midnight flight</div><h3>When I Feel the Distance</h3><p>Miles apart, still choosing each other.</p><button class="mini-btn" onclick="openChapter(2)">Locked 🔒</button></article>
+      <article class="island locked" id="island3"><span class="emoji">💗</span><div class="stamp">04 · Arrival</div><h3>My Favourite Destination Was You</h3><p>The yes, the love, the now.</p><button class="mini-btn" onclick="openChapter(3)">Locked 🔒</button></article>
+    </div>
+    <p class="route-note">﹏﹏﹏ ✈︎ follow the route, co-pilot ♡ ﹏﹏﹏</p>
+  </section>
+
+  <section class="panel active" id="chapter0">
+    <div class="panel-head"><div><div class="stamp">Chapter 01 · Departure Gate</div><h2>Before I Knew It Was You</h2></div><button class="btn ghost" onclick="backToMap()">← Map</button></div>
+    <p>Before you became my girlfriend, there was the curiosity, the soft spot, the almost-confessions — and songs that started to sound a little too familiar.</p>
+    <div class="quote">“Somewhere along the way, you became the person I was unknowingly looking for.”</div>
+    <div class="playlist">
+      <div class="playlist-top"><div class="cover">🌤️</div><div><h3>Before I Knew It Was You</h3><div class="sub">5 songs · the beginning of us</div></div></div>
+      <ol class="song-list"><li>Na Para Bang</li><li>Wantchu</li><li>Soft Spot</li><li>Jump Then Fall</li><li>Torpe</li></ol>
+      <div class="playlist-actions"><a class="btn" href="https://open.spotify.com/" target="_blank" rel="noopener">Find playlist on Spotify ↗</a><button class="btn secondary" onclick="copySpotifyHint(0)">Copy playlist title</button></div>
+      <p class="small">Personalize this button with your playlist link in the code. Instructions are included below the website.</p>
+    </div>
+    <div class="game-box"><div class="stamp">Mini-game 01 · Clearance for takeoff</div><h3 style="font-weight:normal">What's the destination, co-pilot?</h3><p>Choose where this whole journey is headed.</p><div class="choices"><button class="choice" onclick="takeoff('Tokyo')">Tokyo</button><button class="choice" onclick="takeoff('Your heart')">Your heart 💙</button><button class="choice" onclick="takeoff('The moon')">The moon</button></div><div class="feedback" id="takeoffFeedback"></div></div>
+    <button class="btn" id="next0" disabled onclick="completeChapter(0)">Clear for takeoff →</button>
+  </section>
+
+  <section class="panel" id="chapter1">
+    <div class="panel-head"><div><div class="stamp">Chapter 02 · Cloud Nine</div><h2>Songs That Sound Like You</h2></div><button class="btn ghost" onclick="backToMap()">← Map</button></div>
+    <p>Some songs don't remind me of love. They remind me of you — your smile, your voice, and the way you somehow stay in my head.</p>
+    <div class="quote">“Some songs don't remind me of love. They remind me of you.”</div>
+    <div class="playlist"><div class="playlist-top"><div class="cover">☁️</div><div><h3>Songs That Sound Like You</h3><div class="sub">6 songs · my favourite little reminders</div></div></div><ol class="song-list"><li>Those Eyes</li><li>Nothing</li><li>Best Part</li><li>Fearless</li><li>Intention</li><li>Thinkin' Bout You</li></ol><div class="playlist-actions"><a class="btn" href="https://open.spotify.com/" target="_blank" rel="noopener">Find playlist on Spotify ↗</a><button class="btn secondary" onclick="copySpotifyHint(1)">Copy playlist title</button></div><p class="small">Personalize this button with your playlist link in the code.</p></div>
+    <div class="game-box"><div class="stamp">Mini-game 02 · Cloud search</div><h3 style="font-weight:normal">Find three hidden hearts in the clouds</h3><p>Tap the clouds. Some are just clouds; three are hiding a little heart.</p><div class="cloud-grid" id="cloudGrid"></div><div class="feedback" id="cloudFeedback">Hearts found: 0 / 3</div></div>
+    <button class="btn" id="next1" disabled onclick="completeChapter(1)">Continue our flight →</button>
+  </section>
+
+  <section class="panel" id="chapter2">
+    <div class="panel-head"><div><div class="stamp">Chapter 03 · Midnight Flight</div><h2>When I Feel the Distance Between Us</h2></div><button class="btn ghost" onclick="backToMap()">← Map</button></div>
+    <p>Some days, the miles feel bigger than usual. But being far away doesn't mean you're loved any less. You're still my favourite person to come home to, even through a screen.</p>
+    <div class="quote">“If I can't be beside you right now, let this playlist keep you company until I can.”</div>
+    <div class="playlist"><div class="playlist-top"><div class="cover">🌙</div><div><h3>When I Feel the Distance Between Us</h3><div class="sub">3 songs · a little closer, even from far away</div></div></div><ol class="song-list"><li>Here With Me</li><li>Jet Lag</li><li>Comeback… Be Here</li></ol><div class="playlist-actions"><a class="btn" href="https://open.spotify.com/" target="_blank" rel="noopener">Find playlist on Spotify ↗</a><button class="btn secondary" onclick="copySpotifyHint(2)">Copy playlist title</button></div><p class="small">Personalize this button with your playlist link in the code.</p></div>
+    <div class="game-box"><div class="stamp">Mini-game 03 · Memory flight</div><h3 style="font-weight:normal">Match the little memories</h3><p>Find all three matching pairs to unlock the next destination.</p><div class="memory-grid" id="memoryGrid"></div><div class="feedback" id="memoryFeedback">Pairs found: 0 / 3</div><p class="small">The cards are symbols for your story. You can customize them to real memories later.</p></div>
+    <button class="btn" id="next2" disabled onclick="completeChapter(2)">Fly toward my favourite place →</button>
+  </section>
+
+  <section class="panel" id="chapter3">
+    <div class="panel-head"><div><div class="stamp">Chapter 04 · Final Destination</div><h2>My Favourite Destination Was You</h2></div><button class="btn ghost" onclick="backToMap()">← Map</button></div>
+    <p>Of all the places your heart could go, it chose her. This is the chapter where the almost became a yes — and where the story keeps going.</p>
+    <div class="quote">“I thought I was just finding my way through life. Before I knew it, every road was leading me to you.”</div>
+    <div class="playlist"><div class="playlist-top"><div class="cover">💙</div><div><h3>My Favourite Destination Was You</h3><div class="sub">8 songs · the chapter where I choose you</div></div></div><ol class="song-list"><li>Mine</li><li>Statue</li><li>ILYSB</li><li>Destiny</li><li>Soft</li><li>Daylight</li><li>Ours</li><li>Twin Flames</li></ol><div class="playlist-actions"><a class="btn" href="https://open.spotify.com/" target="_blank" rel="noopener">Find playlist on Spotify ↗</a><button class="btn secondary" onclick="copySpotifyHint(3)">Copy playlist title</button></div><p class="small">Personalize this button with your playlist link in the code.</p></div>
+    <div class="game-box"><div class="stamp">Mini-game 04 · Heart treasure</div><h3 style="font-weight:normal">Collect five hearts to open your letter</h3><p>Tap each heart to reveal a reason. These are starter notes — change them to your own words in the code if you want.</p><div class="hearts" id="heartGrid"></div><div class="feedback" id="heartFeedback">Hearts collected: 0 / 5</div></div>
+    <button class="btn" id="openLetter" disabled onclick="showLetter()">Open my letter 💌</button>
+  </section>
+
+  <section class="panel" id="finalLetter">
+    <div class="panel-head"><div><div class="stamp">Flight complete · You have arrived</div><h2>You've Always Been My Favourite Place</h2></div><button class="btn ghost" onclick="backToMap()">← Map</button></div>
+    <div class="letter">
+      <p>My dearest bubba, ♡</p>
+      <p>If you're reading this, it means you've travelled through every chapter, every song, and found your way here — to the place my heart keeps choosing.</p>
+      <p>I just want you to know how grateful I am that you're mine — that out of all the places in the world, my favourite destination was you. Always will be.</p>
+      <p>Thank you for being my person, my favourite notification, my soft place to land, and my co-pilot through this little adventure called us. Even when there's distance between us, I'm still choosing you, one day at a time.</p>
+      <p>Happy monthsary, my love. Here's to every flight we haven't taken, every memory we haven't made, and every version of our future that still has us in it.</p>
+      <p>With all my love,<br><strong>Your Captain ♡</strong></p>
+    </div>
+    <div style="text-align:center;margin-top:22px"><p class="sub">Same sky. Same dream. Always you. ♡</p><a class="btn" href="https://open.spotify.com/" target="_blank" rel="noopener">Play Our Playlist ♫</a></div>
+  </section>
+  <footer>Made with love, a little stardust, and one very lucky captain. ✈️♡<br><span>Tip: add your own Spotify playlist links before publishing.</span></footer>
+</main>
+<script>
+const playlistTitles = [
+  "Before I Knew It Was You",
+  "Songs That Sound Like You",
+  "When I Feel the Distance Between Us",
+  "My Favourite Destination Was You"
+];
+// Replace the four URLs below with your own Spotify playlist links.
+// Example format: https://open.spotify.com/playlist/PLAYLIST_ID
+const spotifyLinks = [
+  "https://open.spotify.com/",
+  "https://open.spotify.com/",
+  "https://open.spotify.com/",
+  "https://open.spotify.com/"
+];
+let unlocked = 0;
+let completed = [false,false,false,false];
+function startJourney(){
+  document.getElementById('journey').classList.remove('hidden');
+  document.getElementById('journey').scrollIntoView({behavior:'smooth'});
+}
+function openChapter(n){
+  if(n>unlocked){return}
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+  const el=document.getElementById('chapter'+n);
+  if(el)el.classList.add('active');
+  document.getElementById('finalLetter').classList.remove('active');
+  document.getElementById('journey').scrollIntoView({behavior:'smooth',block:'start'});
+  updatePlaylistButtons();
+}
+function backToMap(){
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+  document.getElementById('map').scrollIntoView({behavior:'smooth',block:'start'});
+}
+function updateProgress(){
+  const count=completed.filter(Boolean).length;
+  document.getElementById('progressText').textContent=count+' / 5 destinations';
+  document.getElementById('progressBar').style.width=(count/5*100)+'%';
+  for(let i=0;i<4;i++){
+    const island=document.getElementById('island'+i);
+    const btn=island.querySelector('button');
+    if(i<=unlocked){
+      island.classList.remove('locked');
+      btn.textContent=completed[i]?'Revisit chapter ✓':(i===0?'Board flight':'Explore island');
+    }else{
+      island.classList.add('locked');
+      btn.textContent='Locked 🔒';
+    }
+  }
+}
+function completeChapter(n){
+  completed[n]=true;
+  unlocked=Math.max(unlocked,Math.min(n+1,3));
+  updateProgress();
+  if(n<3)openChapter(n+1);
+  else showLetter();
+}
+function takeoff(answer){
+  const f=document.getElementById('takeoffFeedback');
+  if(answer==='Your heart'){
+    f.textContent='Correct, co-pilot. Destination confirmed: your heart. 💙';
+    document.getElementById('next0').disabled=false;
+  }else{
+    f.textContent='Not quite, co-pilot. Check the flight plan one more time. ♡';
+  }
+}
+function copySpotifyHint(i){
+  const text=playlistTitles[i];
+  if(navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(text).then(()=>alert('Playlist title copied! Search it on Spotify.')).catch(()=>alert('Search Spotify for: '+text));
+  }else{alert('Search Spotify for: '+text)}
+}
+function updatePlaylistButtons(){
+  document.querySelectorAll('.playlist').forEach((pl,i)=>{
+    const a=pl.querySelector('a.btn');
+    if(a && i<4 && spotifyLinks[i] && spotifyLinks[i]!=='https://open.spotify.com/'){
+      a.href=spotifyLinks[i];a.textContent='Open my Spotify playlist ↗';
+    }
+  });
+}
+// Hidden-heart game: three correct hearts among nine clouds
+const cloudValues=['☁️','💗','☁️','☁️','💗','☁️','💗','☁️','☁️'];
+let cloudFound=new Set();
+function buildClouds(){
+  const grid=document.getElementById('cloudGrid');
+  grid.innerHTML='';
+  cloudValues.forEach((v,i)=>{
+    const b=document.createElement('button');b.className='cloud';b.textContent='☁️';b.setAttribute('aria-label','Search cloud '+(i+1));
+    b.onclick=()=>{
+      if(cloudFound.has(i))return;
+      cloudFound.add(i);
+      if(v==='💗'){b.textContent='💗';b.classList.add('found')}
+      else{b.textContent='✨'}
+      document.getElementById('cloudFeedback').textContent='Clouds searched: '+cloudFound.size+' / 9 · Hearts found: '+cloudValues.filter((x,j)=>x==='💗'&&cloudFound.has(j)).length+' / 3';
+      if(cloudValues.filter((x,j)=>x==='💗'&&cloudFound.has(j)).length===3){
+        document.getElementById('cloudFeedback').textContent='You found every heart. Just like you found your way into mine. 💙';
+        document.getElementById('next1').disabled=false;
+      }
+    };grid.appendChild(b);
+  });
+}
+const memorySymbols=['💌','💌','📸','📸','☕','☕'];
+let memoryOpen=[],memoryMatches=new Set(),memoryLock=false;
+function buildMemory(){
+  const grid=document.getElementById('memoryGrid');grid.innerHTML='';
+  const shuffled=memorySymbols.map((v,i)=>({v,id:i})).sort(()=>Math.random()-.5);
+  shuffled.forEach((card,pos)=>{
+    const b=document.createElement('button');b.className='memory-card';b.textContent='✈️';
+    b.onclick=()=>{
+      if(memoryLock||memoryMatches.has(pos)||memoryOpen.some(x=>x.pos===pos))return;
+      b.textContent=card.v;b.classList.add('open');memoryOpen.push({pos,v:card.v,el:b});
+      if(memoryOpen.length===2){
+        if(memoryOpen[0].v===memoryOpen[1].v){
+          memoryOpen.forEach(x=>{memoryMatches.add(x.pos);x.el.classList.add('matched')});
+          memoryOpen=[];document.getElementById('memoryFeedback').textContent='Pairs found: '+(memoryMatches.size/2)+' / 3';
+          if(memoryMatches.size===6){document.getElementById('memoryFeedback').textContent='All memories matched. Next stop: the place your heart calls home. ♡';document.getElementById('next2').disabled=false}
+        }else{
+          memoryLock=true;setTimeout(()=>{memoryOpen.forEach(x=>{x.el.textContent='✈️';x.el.classList.remove('open')});memoryOpen=[];memoryLock=false},700);
+        }
+      }
+    };grid.appendChild(b);
+  });
+}
+const reasons=[
+  'Your presence makes ordinary days feel special. ♡',
+  'I love the way you make me smile without trying. ☁️',
+  'You are worth every mile between us. ✈️',
+  'I choose you, even on the quiet and difficult days. 💙',
+  'Out of all the destinations, my heart chooses you. 🌙'
+];
+let heartsFound=new Set();
+function buildHearts(){
+  const grid=document.getElementById('heartGrid');grid.innerHTML='';
+  reasons.forEach((reason,i)=>{
+    const b=document.createElement('button');b.className='heart';b.textContent='♡';b.setAttribute('aria-label','Reveal love note '+(i+1));
+    b.onclick=()=>{
+      if(heartsFound.has(i))return;
+      heartsFound.add(i);b.textContent='💗';b.classList.add('found');
+      document.getElementById('heartFeedback').textContent=reason+'  ('+heartsFound.size+'/5)';
+      if(heartsFound.size===5){document.getElementById('heartFeedback').textContent='All five hearts are yours. Your letter is ready, bubba. 💌';document.getElementById('openLetter').disabled=false}
+    };grid.appendChild(b);
+  });
+}
+function showLetter(){
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+  document.getElementById('finalLetter').classList.add('active');
+  document.getElementById('finalLetter').scrollIntoView({behavior:'smooth',block:'start'});
+}
+function updatePlaylistButtons(){
+  const chapters=[0,1,2,3];
+  chapters.forEach(i=>{
+    const panel=document.getElementById('chapter'+i);
+    const a=panel.querySelector('.playlist a.btn');
+    if(a && spotifyLinks[i] && spotifyLinks[i]!=='https://open.spotify.com/'){
+      a.href=spotifyLinks[i];a.textContent='Open my Spotify playlist ↗';
+    }
+  });
+  const finalLink=document.querySelector('#finalLetter a.btn');
+  if(finalLink && spotifyLinks[3] && spotifyLinks[3]!=='https://open.spotify.com/'){
+    finalLink.href=spotifyLinks[3];
+  }
+}
+document.getElementById('next0').disabled=true;
+document.getElementById('next1').disabled=true;
+document.getElementById('next2').disabled=true;
+document.getElementById('openLetter').disabled=true;
+buildClouds();buildMemory();buildHearts();updateProgress();updatePlaylistButtons();
+</script>
+</body>
+</html>
